@@ -2,6 +2,9 @@
 
 Copilot-style inline completion for VSCode, powered by Gemini's `generateContent` API.
 
+## Support the team
+https://buymeacoffee.com/zaccalos ☕
+
 ## Install (dev)
 
 1. `code --install-extension` needs a packaged `.vsix`, or just run it live:

@@ -1,3 +1,5 @@
+<img width="128" height="128" alt="A7AEB656-09EF-4D5D-9627-A106D60B317A_4_5005_c" src="https://github.com/user-attachments/assets/b4177abb-3a83-4969-a995-34b9f5d0855f" />
+
 # Gemini Autocomplete
 
 Copilot-style inline completion for VSCode, powered by Gemini's `generateContent` API.

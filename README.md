@@ -2,9 +2,6 @@
 
 Copilot-style inline completion for VSCode, powered by Gemini's `generateContent` API.
 
-## Support the team
-https://buymeacoffee.com/zaccalos ☕
-
 ## Install (dev)
 
 1. `code --install-extension` needs a packaged `.vsix`, or just run it live:
@@ -39,3 +36,8 @@ Type code — ghost-text suggestions appear inline. `Tab` accepts.
 - Sends up to `maxContextChars` before/after the cursor to the API. Your code leaves your machine — check Google's data terms before use on private repos.
 - OAuth is a loopback PKCE flow (`127.0.0.1:<random port>`), no client secret in source.
 - Naive 300ms debounce, single-file provider, no build step.
+
+## Support the team
+<a href="https://buymeacoffee.com/zaccalos" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="30">
+</a>

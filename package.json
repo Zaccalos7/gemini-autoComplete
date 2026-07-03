@@ -19,13 +19,13 @@
         },
         "geminiAutocomplete.model": {
           "type": "string",
-          "default": "llama-3.3-70b-versatile",
-          "description": "Model name. Groq: llama-3.3-70b-versatile, llama-3.1-8b-instant, etc."
+          "default": "gemini-3.1-flash-lite",
+          "description": "Model name. Gemini: gemini-3.1-flash-lite Groq: llama-3.3-70b-versatile, llama-3.1-8b-instant, etc."
         },
         "geminiAutocomplete.endpoint": {
           "type": "string",
-          "default": "https://api.groq.com/openai/v1/chat/completions",
-          "description": "OpenAI-compatible chat completions URL. Groq default. OpenRouter: https://openrouter.ai/api/v1/chat/completions"
+          "default": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+          "description": "OpenAI-compatible chat completions URL. Gemini default: https://generativelanguage.googleapis.com/v1beta/openai/chat/completions Groq default. OpenRouter: https://openrouter.ai/api/v1/chat/completions"
         },
         "geminiAutocomplete.enabled": {
           "type": "boolean",

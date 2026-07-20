@@ -10,7 +10,7 @@ function log(...a) {
 }
 
 function cfg() {
-  return vscode.workspace.getConfiguration("geminiAutocomplete");
+  return vscode.workspace.getConfiguration("autocomplete");
 }
 
 function sleep(ms, token) {
@@ -22,6 +22,9 @@ function sleep(ms, token) {
 
 async function getCompletion(document, position, token) {
   const c = cfg();
+
+  if (!c.get("enabled")) return null;
+
   const apiKey = c.get("apiKey");
   if (!apiKey) { log("skip: no apiKey"); return null; }
 
@@ -30,7 +33,7 @@ async function getCompletion(document, position, token) {
     if (token.isCancellationRequested) { log("skip: cancelled"); return null; }
   }
 
-  const maxChars = c.get("maxContextChars") || 4000;
+  const maxChars = c.get("maxContextChars") || 10000;
   const full = document.getText();
   const offset = document.offsetAt(position);
   const before = full.slice(Math.max(0, offset - maxChars), offset);
@@ -106,7 +109,7 @@ function activate(context) {
 
   context.subscriptions.push(
     vscode.languages.registerInlineCompletionItemProvider({ pattern: "**" }, provider),
-    vscode.commands.registerCommand("geminiAutocomplete.test", async () => {
+    vscode.commands.registerCommand("autocomplete.test", async () => {
       const ed = vscode.window.activeTextEditor;
       if (!ed) { vscode.window.showErrorMessage("Apri un file prima."); return; }
       const text = await getCompletion(ed.document, ed.selection.active, undefined);

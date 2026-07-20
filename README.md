@@ -1,5 +1,4 @@
-<img width="128" height="128" alt="A7AEB656-09EF-4D5D-9627-A106D60B317A_4_5005_c" src="https://github.com/user-attachments/assets/b4177abb-3a83-4969-a995-34b9f5d0855f" />
-
+<img width="172" height="171" alt="image" src="https://github.com/user-attachments/assets/65efa974-409a-45c8-9899-e542c77194b4" />
 
 # Gemini Autocomplete
 

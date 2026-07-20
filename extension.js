@@ -20,13 +20,53 @@ function sleep(ms, token) {
   });
 }
 
+async function promptForApiKeyStartup() {
+  const c = cfg();
+  let apiKey = c.get("apiKey");
+
+  if (!apiKey || apiKey.trim() === "") {
+    log("startup: missing apiKey, prompting user");
+    const docLink = "Ottieni API Key (Google AI Studio)";
+    const selection = await vscode.window.showInformationMessage(
+      "Welcome to Autocomplete! Add your API Key to unlock AI-powered features",
+      "Put here your API Key",
+      docLink
+    );
+
+    if (selection === docLink) {
+      vscode.env.openExternal(vscode.Uri.parse("https://aistudio.google.com/"));
+      const input = await vscode.window.showInputBox({
+        prompt: "Great! When your API Key is ready, just paste it here",
+        placeHolder: "AIzaSy...",
+        ignoreFocusOut: true,
+        password: true
+      });
+      if (input && input.trim() !== "") {
+        await c.update("apiKey", input.trim(), vscode.ConfigurationTarget.Global);
+        vscode.window.showInformationMessage("Great! Your API Key is saved and Autocomplete is ready to go.");
+      }
+    } else if (selection === "Inserisci API Key") {
+      const input = await vscode.window.showInputBox({
+        prompt: "Inserisci la tua API Key",
+        placeHolder: "AIzaSy...",
+        ignoreFocusOut: true,
+        password: true
+      });
+      if (input && input.trim() !== "") {
+        await c.update("apiKey", input.trim(), vscode.ConfigurationTarget.Global);
+        vscode.window.showInformationMessage("Great! Your API Key is saved and Autocomplete is ready to go.");
+      }
+    }
+  }
+}
+
 async function getCompletion(document, position, token) {
   const c = cfg();
 
   if (!c.get("enabled")) return null;
 
   const apiKey = c.get("apiKey");
-  if (!apiKey) { log("skip: no apiKey"); return null; }
+  if (!apiKey || apiKey.trim() === "") return null;
 
   if (token) {
     if (!(await sleep(200, token))) { log("skip: debounced"); return null; }
@@ -96,6 +136,9 @@ async function getCompletion(document, position, token) {
 
 function activate(context) {
   log("=== activate ===");
+
+  promptForApiKeyStartup();
+
   const provider = {
     async provideInlineCompletionItems(document, position, ctx, token) {
       if (ctx.triggerKind === vscode.InlineCompletionTriggerKind.Automatic && position.character === 0) {
@@ -110,6 +153,11 @@ function activate(context) {
   context.subscriptions.push(
     vscode.languages.registerInlineCompletionItemProvider({ pattern: "**" }, provider),
     vscode.commands.registerCommand("autocomplete.test", async () => {
+      const c = cfg();
+      if (!c.get("apiKey") || c.get("apiKey").trim() === "") {
+        await promptForApiKeyStartup();
+        return;
+      }
       const ed = vscode.window.activeTextEditor;
       if (!ed) { vscode.window.showErrorMessage("Apri un file prima."); return; }
       const text = await getCompletion(ed.document, ed.selection.active, undefined);

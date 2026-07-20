@@ -1,6 +1,6 @@
 <img width="172" height="171" alt="image" src="https://github.com/user-attachments/assets/65efa974-409a-45c8-9899-e542c77194b4" />
 
-# Gemini Autocomplete
+# Keypilot
 
 Copilot-style inline completion for VSCode, powered by Gemini's `generateContent` API.
 
@@ -33,7 +33,7 @@ If a request returns **403**, adjust `geminiAutocomplete.scope`.
 2. Windows → Ctrl + Shift + P
 3. Linux → Ctrl + Shift + P
 
-- `Then type “Autocomplete Test” and press Enter.`
+- `Then type “Keypilot Test” and press Enter.`
 - `If the extension is active, you’ll see a confirmation message.`
 
 ### Fallback: plain API key
